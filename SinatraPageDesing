@@ -1,0 +1,51 @@
+**FirstPage: HomePage
+Elements:
+sinatraImg: xpath("//img[@src='/images/sinatra.jpg']")
+welcomeLbl: xpath("//p[contains(text(), 'Welcome']")
+navBar: xpath("//nav")
+
+Methods:
+login (user,pass)
+logout () 
+
+**Second page:
+Elements:
+songsLbl: xpath("//h1[text()='Songs']")
+songList: id ("songs")
+createSongLnk: linkText: Create a new song
+
+Methods:
+validateSongExists: (songName)
+createSong(songName, length, date, lyrics)
+login (user,pass)
+logout
+
+**Tird page: AddNewSong
+Elements:
+addNewSongLbl: xpath("//h1[text()='Add A New Song']")
+titleTxt: id ("title")
+lengthTxt: id ("length")
+dateTxt: id ("released_on")
+lyricsTxt: id ("lyrics")
+saveSongBtn:  xpath("//input[@value='Save Song']")
+
+Methods:
+addNewSong (songName, length, date, lyrics)
+
+**Fourth page: SongInfo
+Elements:
+songNameLbl, xpath: //section[@class='main content']/h1
+songAddedLbl, xpath: //div[@class = 'flash notice']
+releaseDateLbl, xpath: //p[contains(text(), 'Release Date:')]
+lengthLbl, xpath: //p[contains(text(), 'Length:')]
+lyricsLbl, xpath: //pre
+likeCountLbl, xpath: //p[contains(text(),'This song has been liked')]
+editSongLnk, xpath: //a[text()='edit this song']
+deleteSongBtn, xpath: //input[@value='delete this song']
+
+methods:
+validateSongInformation(songName, length, date, lyrics)
+validateSongNotLiked()
+validateSongLiked()
+editSong(newSongName, newLength, newDate, newLyrics)
+deleteSong()
