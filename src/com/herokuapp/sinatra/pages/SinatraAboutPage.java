@@ -11,50 +11,44 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.herokuapp.sinatra.utils.PageElementsValidation;
 
-public class SinatraHomePage {
-
+public class SinatraAboutPage {
+	
 	private static WebDriver driver;
 	private static WebDriverWait driverWait;
-	private static PageElementsValidation elementsValidation;
 	private static PageElementsValidation elementValidation;
-
-	public SinatraHomePage (WebDriver driver2, WebDriverWait driverWait2) {
+	
+	public SinatraAboutPage(WebDriver driver2, WebDriverWait driverWait2) {
 		this.driver = driver2;
 		this.driverWait = driverWait2;
 		PageFactory.initElements(this.driver, this);
 	}
 
 	//Elements
-	@FindBy(how = How.XPATH, using = "//img[@src='/images/sinatra.jpg']")
-	WebElement sinatraImg; 
+	@FindBy(how = How.XPATH, using = "//p")
+	WebElement aboutLbl;
 	
-	@FindBy(how = How.XPATH, using = "//p[contains(text(), 'Welcome')]")
-	WebElement welcomeLbl;
+	@FindBy(how = How.XPATH, using = "//a[@href='/about']")
+	WebElement contactLnk;
 	
-	@FindBy(how = How.XPATH, using = "//a[@title='Home']")
-	WebElement homeLnk;
-	
-	//Methods
-	public void goToSinatraHomePage() {
+	public void goToSinatraAboutPage() {
 		driverWait = new WebDriverWait(driver, 15);
 		elementValidation = new PageElementsValidation();
 		
-			
-		if (elementValidation.elementValidation(homeLnk) == false) {
+				
+		if (elementValidation.elementValidation(contactLnk) == false) {
 			driver.quit();
 		}
-		homeLnk.click();
+		
+		contactLnk.click();
 	}
 	
-	public void sinatraHomePageElementsValidation() {
-
-		driverWait = new WebDriverWait(driver, 20);
-		elementsValidation = new PageElementsValidation();
-
-		WebElement[] containerList = {sinatraImg,welcomeLbl};
-
-		if (elementsValidation.elementsValidation(containerList) == false) {
+	public void sinatraAboutPageElementsValidation() {
+		driverWait = new WebDriverWait(driver, 15);
+		elementValidation = new PageElementsValidation();
+		
+		if (elementValidation.elementValidation(aboutLbl) == false) {
 			driver.quit();
 		}
 	}
+
 }

@@ -11,49 +11,43 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.herokuapp.sinatra.utils.PageElementsValidation;
 
-public class SinatraHomePage {
+public class SinatraLogoutPage {
 
 	private static WebDriver driver;
 	private static WebDriverWait driverWait;
-	private static PageElementsValidation elementsValidation;
 	private static PageElementsValidation elementValidation;
 
-	public SinatraHomePage (WebDriver driver2, WebDriverWait driverWait2) {
+	private static String logoutconfirmationMessage = "You have now logged out";
+
+	public SinatraLogoutPage(WebDriver driver2, WebDriverWait driverWait2) {
 		this.driver = driver2;
 		this.driverWait = driverWait2;
 		PageFactory.initElements(this.driver, this);
 	}
 
 	//Elements
-	@FindBy(how = How.XPATH, using = "//img[@src='/images/sinatra.jpg']")
-	WebElement sinatraImg; 
-	
-	@FindBy(how = How.XPATH, using = "//p[contains(text(), 'Welcome')]")
-	WebElement welcomeLbl;
-	
-	@FindBy(how = How.XPATH, using = "//a[@title='Home']")
-	WebElement homeLnk;
-	
+	@FindBy(how = How.XPATH, using = "//a[@href='/logout']")
+	WebElement logoutLnk; 
+
 	//Methods
-	public void goToSinatraHomePage() {
+	public void sinatraLogoutElementsValidation() {
 		driverWait = new WebDriverWait(driver, 15);
 		elementValidation = new PageElementsValidation();
 		
-			
-		if (elementValidation.elementValidation(homeLnk) == false) {
+		if (elementValidation.elementValidation(logoutLnk) == false) {
 			driver.quit();
 		}
-		homeLnk.click();
 	}
-	
-	public void sinatraHomePageElementsValidation() {
 
-		driverWait = new WebDriverWait(driver, 20);
-		elementsValidation = new PageElementsValidation();
+	public void logoutSinatraPage() {
+		driverWait = new WebDriverWait(driver, 15);
+		elementValidation = new PageElementsValidation();
+		
+		logoutLnk.click();
 
-		WebElement[] containerList = {sinatraImg,welcomeLbl};
-
-		if (elementsValidation.elementsValidation(containerList) == false) {
+		WebElement confirmationMessage = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(text(),'" + logoutconfirmationMessage + "')]")));
+		elementValidation = new PageElementsValidation();
+		if (elementValidation.elementValidation(confirmationMessage) == false) {
 			driver.quit();
 		}
 	}
