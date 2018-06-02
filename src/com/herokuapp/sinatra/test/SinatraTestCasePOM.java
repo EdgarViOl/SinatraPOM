@@ -38,31 +38,33 @@ public class SinatraTestCasePOM extends TestBasePOM {
 	}
 	
 	@Test
-	public void sinatraContactPageTestCase() {
+	@FileParameters("./data/params2.csv")
+	public void sinatraContactPageTestCase(String NAME, String EMAIL, String URMESSAGE, String user, String password) {
 		contactPage.goToSinatraContactPage();
 		contactPage.sinatraContactPageElementsValidatation();
-		contactPage.sendContactMessage("Juan Perez", "juan.perez@sinatra.com", "hola");
+		contactPage.sendContactMessage(NAME, EMAIL, URMESSAGE);
 		
 		loginPage.goToLoginPage();
 		loginPage.sinatraLoginPageElementsValidation();
-		loginPage.loginSinatraPage("frank", "sinatra");
+		loginPage.loginSinatraPage(user, password);
 		
 		logoutPage.sinatraLogoutElementsValidation();
 		logoutPage.logoutSinatraPage();
 	}
 	
 	@Test
-	public void sinatraSongsPageTestCase() {
+	@FileParameters("./data/params3.csv")
+	public void sinatraSongsPageTestCase(String user, String password, String songTitle, int lenghtS, String dateS, String lyricS ) {
 		loginPage.goToLoginPage();
 		loginPage.sinatraLoginPageElementsValidation();
-		loginPage.loginSinatraPage("frank", "sinatra");
+		loginPage.loginSinatraPage(user, password);
 		
 		songsPage.goToSinatraSongsPage();
 		songsPage.sinatraSongsPageElementsValidation();
 
 		addSongPage.goToSinatraAddSongsPage();
 		addSongPage.sinatraAddSongPageElementsValidation();
-		addSongPage.addSong("SongTest", 12, "05/30/2018", "SongTestLyrics");
+		addSongPage.addSong(songTitle, lenghtS, dateS, lyricS);
 		
 		logoutPage.sinatraLogoutElementsValidation();
 		logoutPage.logoutSinatraPage();
